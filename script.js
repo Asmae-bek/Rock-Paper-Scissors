@@ -6,34 +6,33 @@ function getComputerChoice() {
     return "paper";
   return "scissors"
 }
-function getHumanChoice() {
-  return prompt("Choose one : rock, paper, or scissors");
+function getHumanChoice(e) {
+  return e.target.textContent;
 }
-function playRound(humanChoice = humanChoice.toLowerCase(), computerChoice = computerChoice.toLowerCase()) {
+function playRound(humanChoice, computerChoice) {
+  humanChoice = humanChoice.toLowerCase();
+  computerChoice = computerChoice.toLowerCase();
+  let div = document.querySelector("div");
   if (humanChoice == computerChoice)
-    console.log("Tie");
+    div.textContent = `Tie score : ${humanScore}-${computerScore}`;
   else if ((humanChoice == "rock" && computerChoice == "scissors")
     || (humanChoice == "scissors" && computerChoice == "paper")
     || (humanChoice == "paper" && computerChoice == "rock")) {
     humanScore++;
-    console.log(`You won! ${humanChoice} beats ${computerChoice}`);
+    div.textContent = `You won! ${humanChoice} beats ${computerChoice} score : ${humanScore}-${computerScore}`;
   } else {
     computerScore++;
-    console.log(`You lost! ${computerChoice} beats ${humanChoice}`);
+    div.textContent = `You lost! ${computerChoice} beats ${humanChoice} score : ${humanScore}-${computerScore}`;
   }
-}
-function playGame() {
-  let i = 5;
-  while (i--) {
-    playRound(getHumanChoice(), getComputerChoice());
+  if (humanScore == 5) {
+    div.textContent = `The winner is you score : ${humanScore}-${computerScore}`;
+    humanScore = 0, computerScore = 0;
   }
-  if (humanScore > computerScore) 
-    console.log("The winner is you");
-  else if (humanScore < computerScore)
-    console.log("The winner is the computer");
-  else 
-    console.log("It's a tie");
-  humanScore = 0, computerScore = 0;
+  else if (computerScore == 5) {
+    div.textContent = `The winner is the computer score : ${humanScore}-${computerScore}`;
+    humanScore = 0, computerScore = 0;
+  } 
 }
 let humanScore = 0, computerScore = 0;
-playGame();
+let choice = document.querySelector("ul");
+choice.addEventListener("click", (e) => {playRound(getHumanChoice(e), getComputerChoice())});
