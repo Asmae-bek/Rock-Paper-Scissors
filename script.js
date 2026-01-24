@@ -12,27 +12,50 @@ function getHumanChoice(e) {
 function playRound(humanChoice, computerChoice) {
   humanChoice = humanChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
-  let div = document.querySelector("div");
-  if (humanChoice == computerChoice)
-    div.textContent = `Tie score : ${humanScore}-${computerScore}`;
+  if (humanChoice == computerChoice) {
+    div.textContent = "Tie";
+    h.textContent = `Your score : ${humanScore}`;
+    c.textContent = `Computer score : ${computerScore}`;
+  }
   else if ((humanChoice == "rock" && computerChoice == "scissors")
     || (humanChoice == "scissors" && computerChoice == "paper")
     || (humanChoice == "paper" && computerChoice == "rock")) {
     humanScore++;
-    div.textContent = `You won! ${humanChoice} beats ${computerChoice} score : ${humanScore}-${computerScore}`;
+    div.textContent = `You won! ${humanChoice} beats ${computerChoice}`;
+    h.textContent = `Your score : ${humanScore}`;
+    c.textContent = `Computer score : ${computerScore}`;
   } else {
     computerScore++;
-    div.textContent = `You lost! ${computerChoice} beats ${humanChoice} score : ${humanScore}-${computerScore}`;
+    div.textContent = `You lost! ${computerChoice} beats ${humanChoice}`;
+    h.textContent = `Your score : ${humanScore}`;
+    c.textContent = `Computer score : ${computerScore}`;
   }
   if (humanScore == 5) {
-    div.textContent = `The winner is you score : ${humanScore}-${computerScore}`;
-    humanScore = 0, computerScore = 0;
+    div.textContent = "Game over! You win ⸜( ˃ ᵕ ˂)⸝♡";
+    h.textContent = `Your score : ${humanScore}`;
+    c.textContent = `Computer score : ${computerScore}`;
+    choice.querySelectorAll("button").forEach(btn => btn.disabled = true);
   }
   else if (computerScore == 5) {
-    div.textContent = `The winner is the computer score : ${humanScore}-${computerScore}`;
-    humanScore = 0, computerScore = 0;
+    div.textContent = "Game over! Computer wins ( • ᴖ • )";
+    h.textContent = `Your score : ${humanScore}`;
+    c.textContent = `Computer score : ${computerScore}`;
+    choice.querySelectorAll("button").forEach(btn => btn.disabled = true);
   } 
+}
+function restart() {
+  humanScore = 0;
+  computerScore = 0;
+  h.textContent = "Your score : 0";
+  c.textContent = "Computer score : 0";
+  div.textContent = "";
+  choice.querySelectorAll("button").forEach(btn => btn.disabled = false);
 }
 let humanScore = 0, computerScore = 0;
 let choice = document.querySelector("ul");
+let div = document.querySelector(".result");
+let h = document.querySelector(".human");
+let c = document.querySelector(".computer");
+const restartBtn = document.querySelector("#restart");
 choice.addEventListener("click", (e) => {playRound(getHumanChoice(e), getComputerChoice())});
+restartBtn.addEventListener("click", restart);
