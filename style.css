@@ -19,6 +19,7 @@ button {
 }
 button:hover:enabled {
   padding: 15px 25px;
+  color: black;
 }
 #restart {
   margin-right: 20px;
