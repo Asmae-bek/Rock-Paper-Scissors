@@ -57,5 +57,9 @@ let div = document.querySelector(".result");
 let h = document.querySelector(".human");
 let c = document.querySelector(".computer");
 const restartBtn = document.querySelector("#restart");
-choice.addEventListener("click", (e) => {playRound(getHumanChoice(e), getComputerChoice())});
+choice.addEventListener("click", (e) => {  
+  if (e.target.tagName === "BUTTON") {
+    playRound(getHumanChoice(e), getComputerChoice());
+  }
+});
 restartBtn.addEventListener("click", restart);
